@@ -1,6 +1,7 @@
 import Image from "next/image";
 import userAvatar from '@/assets/user.png'
 import NavLink from "./NavLink";
+import Link from "next/link";
 
 const Navbar = () => {
     return ( 
@@ -15,7 +16,9 @@ const Navbar = () => {
             </div>
             <div className="flex items-center gap-2">
                 <Image src={userAvatar} alt="User Profile Pic" width={40} height={40} className="rounded-full"></Image>
-                <button className="btn btn-primary">Login</button>
+                <Link href={'/login'}>
+                    <button className="btn btn-primary">Login</button>
+                </Link>
             </div>
         </div>
      );
