@@ -13,7 +13,7 @@ const NewsAndCategoryPage = async ({params}) => {
             <div className="col-span-3">
                 <LeftSideBar
                 allCategories={allCategories}
-                id={id}
+                activeId={id}
                 ></LeftSideBar>
             </div>
 
