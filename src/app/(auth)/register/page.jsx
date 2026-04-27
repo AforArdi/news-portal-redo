@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
@@ -14,9 +15,24 @@ const RegisterPage = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        // console.log(data);
+        const {name, email, password, photo} = data;
+        const { data: res, error } = await authClient.signUp.email({
+            email, // user email address
+            password, // user password -> min 8 characters by default
+            name, // user display name
+            image: photo, // User image URL (optional)
+            callbackURL: "/" // A URL to redirect to after the user verifies their email (optional)
+        })
+        if(error){
+            alert(`${error.message}`)
+        }
+        if(res){
+            alert('Register Success!')
+        }
     }
+
     return (
         <div className="mt-10 flex justify-center">
             <form onSubmit={handleSubmit(onSubmit)}

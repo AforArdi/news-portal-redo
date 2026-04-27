@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -15,8 +16,21 @@ const LoginPage = () => {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => {
-        console.log(data);
+    const onSubmit = async (data) => {
+        // console.log(data);
+        const { email, password } = data;
+        const { data: res, error } = await authClient.signUp.email({
+            email, // user email address
+            password, // user password -> min 8 characters by default
+            rememberMe: true,
+            callbackURL: "/" // A URL to redirect to after the user verifies their email (optional)
+        })
+        if (error) {
+            alert(`${error.message}`)
+        }
+        if (res) {
+            alert('Login Success!')
+        }
     }
     return (
         <div className="mt-10 flex justify-center">
