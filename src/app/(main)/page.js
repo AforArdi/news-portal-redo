@@ -1,8 +1,8 @@
-import { redirect } from "next/dist/server/api-utils";
+import { redirect } from "next/navigation";
 
 export default function Home() {
   const defaultRouteId = '02'
   return (
-    redirect('/login')
+    redirect(`/category/${defaultRouteId}`)
   );
 }
