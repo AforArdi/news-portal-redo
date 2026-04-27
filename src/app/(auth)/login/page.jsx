@@ -19,12 +19,13 @@ const LoginPage = () => {
     const onSubmit = async (data) => {
         // console.log(data);
         const { email, password } = data;
-        const { data: res, error } = await authClient.signUp.email({
+        const { data: res, error } = await authClient.signIn.email({
             email, // user email address
             password, // user password -> min 8 characters by default
             rememberMe: true,
             callbackURL: "/" // A URL to redirect to after the user verifies their email (optional)
         })
+        console.log(error);
         if (error) {
             alert(`${error.message}`)
         }
