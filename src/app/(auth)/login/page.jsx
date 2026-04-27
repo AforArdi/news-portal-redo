@@ -1,9 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 
 const LoginPage = () => {
+    const [isVisible, setIsVisible] = useState(false);
+
     const {
         register,
         handleSubmit,
@@ -17,22 +21,32 @@ const LoginPage = () => {
     return (
         <div className="mt-10 flex justify-center">
             <form onSubmit={handleSubmit(onSubmit)}
-            className="fieldset bg-base-200 border-base-300 rounded-box w-[70vh] border p-4">
+                className="fieldset bg-base-200 border-base-300 rounded-box w-[70vh] border p-4">
                 <h2 className="text-3xl font-semibold text-[#403F3F] text-center">Login your account</h2>
 
                 <div className="divider w-xs mx-auto"></div>
 
+                {/* email */}
                 <label className="label text-xl text-[#403F3F]">Email</label>
                 <input type="email" className="input w-full" placeholder="Email"
-                {...register("email", { required: 'email is required' })}
+                    {...register("email", { required: 'email is required' })}
                 />
                 {errors.email && <span>{errors.email.message}</span>}
 
-                <label className="label text-xl text-[#403F3F]">Password</label>
-                <input type="password" className="input w-full" placeholder="Password"
-                {...register("password", { required: 'password is required' })}
-                />
-                {errors.password && <span>{errors.password.message}</span>}
+                {/* password */}
+                {/* here the div is for making the pass toggle eye position */}
+                <div className="relative">
+                    <label className="label text-xl text-[#403F3F]">Password</label>
+                    <input type={isVisible ? 'text' : 'password'} className="input w-full" placeholder="Password"
+                        {...register("password", { required: 'password is required' })}
+                    />
+                    <span onClick={() => setIsVisible(!isVisible)}
+                        className="absolute right-4 top-9 cursor-pointer"
+                    >
+                        {isVisible ? <FaRegEye size={20}></FaRegEye> : <FaRegEyeSlash size={20}></FaRegEyeSlash>}
+                    </span>
+                    {errors.password && <span>{errors.password.message}</span>}
+                </div>
 
                 <button className="btn bg-[#403F3F] text-white mt-4">Login</button>
                 <h2 className="font-semibold text-[16px]">Don't have an account? <Link href={'/register'} className="text-blue-500">Register</Link></h2>
